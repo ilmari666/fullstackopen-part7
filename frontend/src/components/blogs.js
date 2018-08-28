@@ -7,15 +7,17 @@ const Blogs = props => {
   return (
     <div>
       <h2>Blogs</h2>
-      {blogs.map(blog => (
-        <Blog
-          key={blog.id}
-          {...blog}
-          onLiked={onLiked}
-          onDelete={onDelete}
-          loggedInUser={loggedInUser}
-        />
-      ))}
+      {blogs.map(blog => {
+        return (
+          <Blog
+            key={blog.id}
+            {...blog}
+            onLiked={onLiked}
+            onDelete={onDelete}
+            loggedInUser={loggedInUser}
+          />
+        );
+      })}
     </div>
   );
 };

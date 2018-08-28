@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import notify from './actions/notify';
 import Blogs from './components/blogs';
 import BlogForm from './components/blogform';
 import blogService from './services/blogs';
@@ -33,21 +35,22 @@ class App extends React.Component {
       blogService.setToken(parsedUser.token);
     }
   }
-
+  /*
   notify(message) {
     clearTimeout(this.notifyTimeout);
     this.setState({ message });
     this.notifyTimeout = setTimeout(() => this.setState({ message: '' }), 3000);
   }
+  */
   notifyError(response) {
     if (typeof response === 'string') {
-      this.notify({ error: response });
+      this.props.notify({ error: response });
     } else {
       const err =
         response.data && response.data.error
           ? response.data.error
           : response.statusText;
-      this.notify({ error: err || '' });
+      this.props.notify({ error: err || '' });
     }
   }
 
@@ -69,7 +72,7 @@ class App extends React.Component {
     this.setState({
       user: null
     });
-    this.notify(`Hope to see you soon again, ${user.username}.`);
+    this.props.notify(`Hope to see you soon again, ${user.username}.`);
   };
 
   // should have its own get interface /api/blogs/:id/like
@@ -86,6 +89,7 @@ class App extends React.Component {
     const blogToUpdate = updatedBlogs.find(blog => blog.id === id);
     blogToUpdate.likes = response.data.likes;
     this.updateBlogs(updatedBlogs);
+    this.props.notify('like');
   };
 
   updateBlogs(newBlogs) {
@@ -102,7 +106,7 @@ class App extends React.Component {
       return this.notifyError(response);
     }
 
-    this.notify(`Added "${blog.title}" by ${blog.author} successfully`);
+    this.props.notify(`Added "${blog.title}" by ${blog.author} successfully`);
     this.blogForm.hide();
 
     const newBlog = response.data;
@@ -130,9 +134,10 @@ class App extends React.Component {
         </div>
       );
     }
+    //    <Notification message={message} />
     return (
       <div>
-        <Notification message={message} />
+        <Notification />
         <UserInfo username={user.username} onLogout={this.logout} />
         <Blogs
           user={user}
@@ -153,4 +158,7 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(
+  null,
+  { notify }
+)(App);

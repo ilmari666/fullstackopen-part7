@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 const NotificationBox = styled.div`
   border-style: solid;
@@ -8,7 +9,7 @@ const NotificationBox = styled.div`
 `;
 
 const Notification = props => {
-  const { message } = props;
+  const { notification: message } = props;
   if (!message) {
     return <div />;
   }
@@ -19,4 +20,10 @@ const Notification = props => {
   return <NotificationBox>{message}</NotificationBox>;
 };
 
-export default Notification;
+const mapStateToProps = state => {
+  return {
+    notification: state.notification
+  };
+};
+
+export default connect(mapStateToProps)(Notification);
