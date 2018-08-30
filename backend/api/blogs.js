@@ -93,4 +93,20 @@ blogsRouter.delete('/:id', async (request, response) => {
   }
 });
 
+blogsRouter.get('/:id/like', async (request, response) => {
+  const id = request.params.id;
+  try {
+    const blog = await Blog.findById(id);
+    if (blog) {
+      blog.likes++;
+      blog.save();
+      return response.json(Blog.format(blog));
+    } else {
+      return response.status(404).end();
+    }
+  } catch (e) {
+    response.status(400).end();
+  }
+});
+
 module.exports = blogsRouter;
