@@ -1,5 +1,6 @@
 import React from 'react';
-import { func } from 'prop-types';
+import { connect } from 'react-redux';
+import { login } from '../actions/auth';
 import Form from './form';
 
 const fields = [
@@ -18,6 +19,7 @@ const LoginForm = props => {
   return <Form fields={fields} onSubmit={onSubmit} buttonLabel="login" />;
 };
 
-LoginForm.propTypes = { onSubmit: func.isRequired };
-
-export default LoginForm;
+export default connect(
+  null,
+  { onSubmit: login }
+)(LoginForm);

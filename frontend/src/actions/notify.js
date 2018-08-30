@@ -1,7 +1,6 @@
 let timeout;
 
 const notify = (message, duration = 10) => dispatch => {
-  console.log('notify', message);
   clearTimeout(timeout);
   dispatch({
     type: 'NOTIFY',

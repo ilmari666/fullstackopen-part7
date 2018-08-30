@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Blog from './blog';
 
 const Blogs = props => {
   const { blogs, onLiked, onDelete, user: loggedInUser } = props;
-
   return (
     <div>
       <h2>Blogs</h2>
@@ -22,4 +22,4 @@ const Blogs = props => {
   );
 };
 
-export default Blogs;
+export default connect(state => ({ blogs: state.blogs }))(Blogs);
