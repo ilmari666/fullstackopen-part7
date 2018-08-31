@@ -1,21 +1,26 @@
 import axios from 'axios';
 const baseUrl = '/api/users';
-const getAll = async () => {
-  try {
-    const response = await axios.get(baseUrl);
-    return response;
-  } catch ({ response }) {
-    return response;
+
+export const getAll = async () => {
+  const response = await axios.get(baseUrl, { validateStatus: null });
+  if (response.status !== 200) {
+    return {
+      error: response.data.error
+    };
   }
+  return response.data;
 };
 
-const get = async id => {
-  try {
-    const response = await axios.get(`${baseUrl}/${id}`);
-    return response;
-  } catch ({ response }) {
-    return response;
+export const get = async id => {
+  const response = await axios.get(`${baseUrl}/${id}`, {
+    validateStatus: null
+  });
+  if (response.status !== 200) {
+    return {
+      error: response.data.error
+    };
   }
+  return response.data;
 };
 
 export default {

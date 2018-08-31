@@ -36,18 +36,20 @@ export const like = async id => {
   return response.data;
 };
 
-const create = async blogObj => {
-  const config = getAuthorizationHeaders();
-
-  try {
-    const response = await axios.post(baseUrl, blogObj, config);
-    return response;
-  } catch ({ response }) {
-    return response;
+export const create = async blogObj => {
+  const config = {
+    ...getAuthorizationHeaders(),
+    validateStatus: null
+  };
+  const response = await axios.post(baseUrl, blogObj, config);
+  if (response.status !== 201) {
+    return {
+      error: response.data.error
+    };
   }
+  return response;
 };
-
-const update = async (id, blogObj) => {
+export const update = async (id, blogObj) => {
   const config = getAuthorizationHeaders();
 
   try {
@@ -58,7 +60,7 @@ const update = async (id, blogObj) => {
   }
 };
 
-const remove = async id => {
+export const remove = async id => {
   const config = getAuthorizationHeaders();
   try {
     const response = await axios.delete(`${baseUrl}/${id}`, config);
