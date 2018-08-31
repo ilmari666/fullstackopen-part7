@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
 import notify from './actions/notify';
-import { logout, autoLogin } from './actions/auth';
+import { autoLogin } from './actions/auth';
 import Blogs from './components/Blogs';
 
 import LoginForm from './components/LoginForm';
 import UserInfo from './components/UserInfo';
 import Users from './components/Users';
 import Notification from './components/Notification';
+import About from './components/About';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,41 +24,43 @@ class App extends React.Component {
     this.props.autoLogin();
   }
 
-  /*
-  newBlog = async blog => {
-    if (!(blog.title && blog.url)) {
-      return this.notify({ error: 'Please fill blog title and URL' });
-    }
-    const response = await blogService.create(blog);
-    if (response.status !== 201) {
-      return this.notify({ error: response });
-    }
-
-    this.props.notify(`Added "${blog.title}" by ${blog.author} successfully`);
-    this.blogForm.hide();
-
-    const newBlog = response.data;
-    const updatedBlogs = this.state.blogs.concat(newBlog);
-    this.setState({ blogs: updatedBlogs });
-  };
-*/
-
   render() {
     const { auth } = this.props;
-    if (!auth) {
-      return (
-        <div>
-          <Notification />
-          <LoginForm />
-        </div>
-      );
-    }
     return (
-      <div>
-        <Notification />
-        <UserInfo />
-        <Blogs />
-      </div>
+      <BrowserRouter>
+        <div>
+          <Link to="/users">Users</Link> &nbsp;
+          <Link to="/blogs">Blogs</Link> &nbsp;
+          <Link to="/about">About</Link> &nbsp;
+          <Notification />
+          {auth ? <UserInfo /> : null}
+          <Route
+            exact
+            path="/users"
+            render={() => (!auth ? <Redirect to="/login" /> : <Users />)}
+          />
+          <Route
+            exact
+            path="/blogs"
+            render={() => (!auth ? <Redirect to="/login" /> : <Blogs />)}
+          />
+          <Route
+            exact
+            path="/login"
+            render={({ history }) =>
+              !auth ? <LoginForm /> : <Redirect to="/" />
+            }
+          />
+          <Route
+            exact
+            path="/"
+            render={() =>
+              !auth ? <Redirect to="/login" /> : <Redirect to="/blogs" />
+            }
+          />
+          <Route exact path="/about" render={() => <About />} />
+        </div>
+      </BrowserRouter>
     );
   }
 }

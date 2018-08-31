@@ -1,22 +1,23 @@
 import { getAll, get } from '../services/users';
 
-import { getAll, get, like, create, remove } from '../services/blogs';
-
-export const getBlogs = () => async dispatch => {
+export const getUsers = () => async dispatch => {
+  console.log('getUsers');
   const response = await getAll();
+  console.log('rrr', response);
   if (response.error) {
     return dispatch({
       type: 'NOTIFY',
       message: { error: response.error }
     });
   }
+  console.log('dddd');
   return dispatch({
     type: 'UPDATE_USERS',
-    blogs: response
+    users: response
   });
 };
 
-export const getBlog = id => async dispatch => {
+export const getUser = id => async dispatch => {
   const response = await get(id);
   if (response.error) {
     return dispatch({
@@ -26,7 +27,7 @@ export const getBlog = id => async dispatch => {
   }
   return dispatch({
     type: 'UPDATE_USER',
-    blog: response
+    user: response
   });
 };
-export default { getAll, getSingle };
+export default { getAll, getUser };

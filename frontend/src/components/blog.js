@@ -52,7 +52,7 @@ class Blog extends React.Component {
               {this.state.likes} likes
               <button onClick={this.onLiked}>Like</button>
             </div>
-            {!user || username === this.props.username ? (
+            {!user || username === this.props.loggedInUserName ? (
               <button onClick={this.onDelete}>Delete</button>
             ) : null}
           </div>
@@ -62,8 +62,6 @@ class Blog extends React.Component {
   }
 }
 
-export default connect(state => {
-  return {
-    username: state.auth.username
-  };
-})(Blog);
+export default connect(state => ({ loggedInUserName: state.auth.username }))(
+  Blog
+);

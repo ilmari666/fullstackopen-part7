@@ -12,7 +12,7 @@ const UserInfo = props => {
   const { logout, username } = props;
   return (
     <div>
-      Welcome, {username}
+      Logged in as {username}
       <button onClick={wrapCallback(logout)}>Logout</button>
     </div>
   );
@@ -21,7 +21,7 @@ const UserInfo = props => {
 export default connect(
   state => {
     return {
-      auth: state.auth
+      username: state.auth.username
     };
   },
   { logout }

@@ -10,7 +10,7 @@ usersRouter.get('/', async (request, response) => {
     likes: 1
   });
 
-  response.json(users.map(User.format));
+  response.status(200).json(users.map(User.format));
 });
 
 usersRouter.post('/', async (request, response) => {
