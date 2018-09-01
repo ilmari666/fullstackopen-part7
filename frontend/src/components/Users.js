@@ -8,7 +8,6 @@ class Users extends Component {
     this.props.getUsers();
   }
   render() {
-    console.log('Users', this.props);
     const users = this.props.users || [];
     return (
       <div>

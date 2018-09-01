@@ -37,19 +37,24 @@ class App extends React.Component {
           <Route
             exact
             path="/users"
-            render={() => (!auth ? <Redirect to="/login" /> : <Users />)}
+            render={() => (!auth ? <Redirect push to="/login" /> : <Users />)}
           />
           <Route
             exact
             path="/blogs"
-            render={() => (!auth ? <Redirect to="/login" /> : <Blogs />)}
+            render={() => (!auth ? <Redirect push to="/login" /> : <Blogs />)}
           />
           <Route
             exact
             path="/login"
-            render={({ history }) =>
-              !auth ? <LoginForm /> : <Redirect to="/" />
-            }
+            render={({ history }) => {
+              if (!auth) {
+                return <LoginForm />;
+              } else {
+                history.goBack();
+                return null;
+              }
+            }}
           />
           <Route
             exact
