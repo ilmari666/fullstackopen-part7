@@ -25,7 +25,7 @@ export const get = async id => {
 };
 
 export const like = async id => {
-  const response = await axios.get(`${baseUrl}/${id}/like`, {
+  const response = await axios.patch(`${baseUrl}/${id}/like`, {
     validateStatus: null
   });
   if (response.status !== 200) {

@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getBlogs, likeBlog, createBlog, deleteBlog } from '../actions/blogs';
 import Blog from './Blog';
 import BlogForm from './BlogForm';
 import Toggleable from './Toggleable';
+
+const ListBlog = ({ title, author, id }) => (
+  <div>
+    <Link to={`/blogs/${id}`}>
+      {title}, {author}
+    </Link>
+  </div>
+);
 
 class Blogs extends Component {
   componentDidMount() {
@@ -22,18 +31,6 @@ class Blogs extends Component {
     return (
       <div>
         <h2>Blogs</h2>
-        {blogs.map(blog => {
-          return (
-            <Blog
-              key={blog.id}
-              {...blog}
-              onLiked={likeBlog}
-              onDelete={this.deleteBlog}
-              loggedInUser={loggedInUser}
-            />
-          );
-        })}
-
         <Toggleable
           showLabel="New Blog"
           hideLabel="Cancel"
@@ -42,12 +39,15 @@ class Blogs extends Component {
         >
           <BlogForm onSubmit={this.props.createBlog} />
         </Toggleable>
+        {blogs.map(blog => (
+          <ListBlog key={blog.id} {...blog} />
+        ))}
       </div>
     );
   }
 }
 
 export default connect(
-  state => ({ blogs: state.blogs }),
+  state => ({ blogs: state.blogs.blogs }),
   { getBlogs, likeBlog, createBlog, deleteBlog }
 )(Blogs);

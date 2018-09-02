@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Toggleable from './Toggleable';
+import { deleteBlog, getBlog, likeBlog } from '../actions/blogs';
 
 const BlogWrapper = styled.div`
   border-style: solid;
@@ -13,42 +14,43 @@ class Blog extends React.Component {
     super(props);
     this.state = { likes: props.likes };
   }
-
-  toggleContent = e => {
-    if (e) {
-      e.preventDefault();
+  componentDidMount() {
+    if (!this.props.blog) {
+      console.log('loadBlog');
+      this.props.getBlog(this.props.id);
     }
-    this.content.toggle();
-  };
-
+  }
   onLiked = e => {
-    // this is terrible
     e.preventDefault();
-    const likes = this.state.likes;
-    const { url, author, user, title, id } = this.props;
-    this.props.onLiked({ likes, url, author, user, title, id });
-    this.setState({ likes: likes + 1 });
+    this.props.likeBlog(this.props.id);
   };
 
   onDelete = e => {
     e.preventDefault();
-    const { author, user, title, id } = this.props;
-    this.props.onDelete({ author, user, title, id });
+    this.props.deleteBlog(this.props.id);
   };
+
   render() {
-    const { title, author, url, user } = this.props;
-    const username = user ? user.username : '';
+    if (!this.props.blog) {
+      return null;
+    }
+    const { title, author, url, user, likes, comments } = this.props.blog;
+    const username = user.username;
     return (
       <div>
-        <div className="blogHeader" onClick={this.toggleContent.bind(this)}>
+        <div className="blogHeader">
           {title} {author}
         </div>
 
         <div>
           <div className="blogInfo">
             URL: <a href={url}>{url}</a> <br />
-            Created by: {username} <br />
-            {this.state.likes} likes
+            Created by:{' '}
+            <Link to={`/users/${user._id}`}>
+              {username}
+              <br />
+            </Link>
+            {likes} likes
             <button onClick={this.onLiked}>Like</button>
           </div>
           {!user || username === this.props.loggedInUserName ? (
@@ -60,6 +62,22 @@ class Blog extends React.Component {
   }
 }
 
-export default connect(state => ({ loggedInUserName: state.auth.username }))(
-  Blog
-);
+const mapStateToProps = (state, props) => {
+  const id = props.match.params.id;
+  const blogs = state.blogs.blogs;
+  const blog = blogs.find(blog => blog.id === id);
+  return {
+    blog,
+    id,
+    loggedInUserName: state.auth.username
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    deleteBlog,
+    getBlog,
+    likeBlog
+  }
+)(Blog);

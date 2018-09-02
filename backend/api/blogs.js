@@ -11,8 +11,11 @@ blogsRouter.get('/', async (request, response) => {
 
 blogsRouter.get('/:id', async (request, response) => {
   const id = request.params.id;
+
   try {
-    const blog = await Blog.findById(id);
+    const blog = await Blog.findById(id).populate('user', {
+      username: 1
+    });
     if (blog) {
       blog.populate('user');
       return response.json(Blog.format(blog));
@@ -93,14 +96,34 @@ blogsRouter.delete('/:id', async (request, response) => {
   }
 });
 
-blogsRouter.get('/:id/like', async (request, response) => {
+blogsRouter.patch('/:id/like', async (request, response) => {
   const id = request.params.id;
   try {
     const blog = await Blog.findById(id);
     if (blog) {
       blog.likes++;
       blog.save();
-      return response.json(Blog.format(blog));
+      return response.json({ likes: blog.likes });
+    } else {
+      return response.status(404).end();
+    }
+  } catch (e) {
+    response.status(400).end();
+  }
+});
+
+blogsRouter.post('/:id/comments', async (request, response) => {
+  const id = request.params.id;
+  const { comment } = request.body;
+  if (!comment) {
+    return response.status(401).json({ error: 'comment required' });
+  }
+  try {
+    const blog = await Blog.findById(id);
+    if (blog) {
+      blog.comments.push(comment);
+      blog.save();
+      return response.status(200).end();
     } else {
       return response.status(404).end();
     }

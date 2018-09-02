@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 import notify from './actions/notify';
 import { autoLogin } from './actions/auth';
 import Blogs from './components/Blogs';
-
+import Blog from './components/Blog';
 import LoginForm from './components/LoginForm';
 import UserInfo from './components/UserInfo';
 import Users from './components/Users';
@@ -40,11 +40,11 @@ class App extends React.Component {
             <Route exact path="/users" component={Users} />
             <Route path="/users/:id" component={User} />
           </Switch>
-          <Route
-            exact
-            path="/blogs"
-            render={() => (!auth ? <Redirect push to="/login" /> : <Blogs />)}
-          />
+          <Switch>
+            {!auth ? <Redirect push to="/login" /> : null}
+            <Route exact path="/blogs" component={Blogs} />
+            <Route path="/blogs/:id" component={Blog} />
+          </Switch>
           <Route
             exact
             path="/login"

@@ -19,9 +19,14 @@ class User extends Component {
     const { username, name, adult, blogs } = user;
     return (
       <div>
-        <Link to={`/users/${id}`}>
-          {username}, {blogs.length} blogs
-        </Link>
+        User: {username}, <br />
+        blogs: <br />
+        {blogs.map(blog => (
+          <Link to={`/blogs/${blog._id}`}>
+            {blog.title}
+            <br />
+          </Link>
+        ))}
       </div>
     );
   }
