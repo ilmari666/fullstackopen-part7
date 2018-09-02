@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 import notify from './actions/notify';
 import { autoLogin } from './actions/auth';
 import Blogs from './components/Blogs';
@@ -8,6 +8,7 @@ import Blogs from './components/Blogs';
 import LoginForm from './components/LoginForm';
 import UserInfo from './components/UserInfo';
 import Users from './components/Users';
+import User from './components/User';
 import Notification from './components/Notification';
 import About from './components/About';
 
@@ -34,28 +35,33 @@ class App extends React.Component {
           <Link to="/about">About</Link> &nbsp;
           <Notification />
           {auth ? <UserInfo /> : null}
-          <Route
-            exact
-            path="/users"
-            render={() => (!auth ? <Redirect to="/login" /> : <Users />)}
-          />
+          <Switch>
+            {!auth ? <Redirect push to="/login" /> : null}
+            <Route exact path="/users" component={Users} />
+            <Route path="/users/:id" component={User} />
+          </Switch>
           <Route
             exact
             path="/blogs"
-            render={() => (!auth ? <Redirect to="/login" /> : <Blogs />)}
+            render={() => (!auth ? <Redirect push to="/login" /> : <Blogs />)}
           />
           <Route
             exact
             path="/login"
-            render={({ history }) =>
-              !auth ? <LoginForm /> : <Redirect to="/" />
-            }
+            render={({ history }) => {
+              if (!auth) {
+                return <LoginForm />;
+              } else {
+                history.goBack();
+                return null;
+              }
+            }}
           />
           <Route
             exact
             path="/"
             render={() =>
-              !auth ? <Redirect to="/login" /> : <Redirect to="/blogs" />
+              !auth ? <Redirect push to="/login" /> : <Redirect to="/blogs" />
             }
           />
           <Route exact path="/about" render={() => <About />} />

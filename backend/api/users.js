@@ -13,6 +13,23 @@ usersRouter.get('/', async (request, response) => {
   response.status(200).json(users.map(User.format));
 });
 
+usersRouter.get('/:id', async (request, response) => {
+  const id = request.params.id;
+  try {
+    const user = await User.findById(id).populate('blogs', {
+      title: 1,
+      author: 1,
+      url: 1,
+      likes: 1
+    });
+
+    response.status(200).json(User.format(user));
+  } catch (exception) {
+    console.log(exception);
+    response.status(500).json({ error: 'something went wrong...' });
+  }
+});
+
 usersRouter.post('/', async (request, response) => {
   try {
     const body = request.body;

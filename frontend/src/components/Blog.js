@@ -39,25 +39,23 @@ class Blog extends React.Component {
     const { title, author, url, user } = this.props;
     const username = user ? user.username : '';
     return (
-      <BlogWrapper>
+      <div>
         <div className="blogHeader" onClick={this.toggleContent.bind(this)}>
           {title} {author}
         </div>
 
-        <Toggleable ref={ref => (this.content = ref)}>
-          <div>
-            <div className="blogInfo">
-              URL: <a href={url}>{url}</a> <br />
-              Created by: {username} <br />
-              {this.state.likes} likes
-              <button onClick={this.onLiked}>Like</button>
-            </div>
-            {!user || username === this.props.loggedInUserName ? (
-              <button onClick={this.onDelete}>Delete</button>
-            ) : null}
+        <div>
+          <div className="blogInfo">
+            URL: <a href={url}>{url}</a> <br />
+            Created by: {username} <br />
+            {this.state.likes} likes
+            <button onClick={this.onLiked}>Like</button>
           </div>
-        </Toggleable>
-      </BlogWrapper>
+          {!user || username === this.props.loggedInUserName ? (
+            <button onClick={this.onDelete}>Delete</button>
+          ) : null}
+        </div>
+      </div>
     );
   }
 }

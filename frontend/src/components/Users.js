@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getUsers } from '../actions/users';
-import User from './User';
+
+const ListUser = ({ username, blogs, id }) => (
+  <div>
+    <Link to={`/users/${id}`}>
+      {username}, {blogs.length} blogs
+    </Link>
+  </div>
+);
 
 class Users extends Component {
   componentDidMount() {
-    this.props.getUsers();
+    if (this.props.dirty) {
+      this.props.getUsers();
+    }
   }
   render() {
     const users = this.props.users || [];
@@ -13,7 +23,7 @@ class Users extends Component {
       <div>
         <h1>Users</h1>
         {users.map(user => (
-          <User key={user.id} {...user} />
+          <ListUser key={user.id} {...user} />
         ))}
       </div>
     );
@@ -22,7 +32,8 @@ class Users extends Component {
 
 export default connect(
   state => ({
-    users: state.users
+    users: state.users.users,
+    dirty: state.users.dirty
   }),
   { getUsers }
 )(Users);

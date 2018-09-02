@@ -27,4 +27,3 @@ export const getUser = id => async dispatch => {
     user: response
   });
 };
-export default { getAll, getUser };
