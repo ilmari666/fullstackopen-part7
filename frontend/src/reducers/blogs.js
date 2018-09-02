@@ -2,6 +2,17 @@ const compareLikes = (a, b) => a.likes < b.likes;
 
 const blogReducer = (store = { blogs: [], dirty: true }, action) => {
   switch (action.type) {
+    case 'ADD_BLOG_COMMENT': {
+      const id = action.id;
+      const blog = store.blogs.find(b => b.id === id);
+      const updatedBlog = {
+        ...blog,
+        comments: blog.comments.concat(action.content)
+      };
+      const blogs = [...store.blogs.filter(b => b.id !== id), updatedBlog];
+      blogs.sort(compareLikes);
+      return { ...store, blogs };
+    }
     case 'UPDATE_BLOGS': {
       const blogs = [...action.blogs];
       blogs.sort(compareLikes);
@@ -10,7 +21,7 @@ const blogReducer = (store = { blogs: [], dirty: true }, action) => {
     case 'UPDATE_BLOG': {
       const id = action.id;
       const update = action.content;
-      const blog = store.blogs.find(blog => blog.id === id) || {};
+      const blog = store.blogs.find(b => b.id === id) || {};
       const updatedBlog = { ...blog, ...update };
       const blogs = [...store.blogs.filter(b => b.id !== id), updatedBlog];
       blogs.sort(compareLikes);

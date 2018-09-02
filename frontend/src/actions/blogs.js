@@ -1,4 +1,4 @@
-import { getAll, get, like, create, remove } from '../services/blogs';
+import { getAll, get, like, create, remove, comment } from '../services/blogs';
 
 export const getBlogs = () => async dispatch => {
   const response = await getAll();
@@ -43,6 +43,23 @@ export const likeBlog = id => async dispatch => {
     content: response,
     id,
     notification: `Liked blog ${id}`
+  });
+};
+
+export const commentBlog = (id, content) => async dispatch => {
+  const response = await comment(id, content.comment);
+  if (response.error) {
+    return dispatch({
+      type: 'NOTIFY',
+      message: { error: response.error }
+    });
+  }
+
+  return dispatch({
+    type: 'ADD_BLOG_COMMENT',
+    content,
+    id,
+    notification: `Added comment ${content.comment}`
   });
 };
 

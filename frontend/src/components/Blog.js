@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { deleteBlog, getBlog, likeBlog } from '../actions/blogs';
+import Comments from './Comments';
 
 const BlogWrapper = styled.div`
   border-style: solid;
@@ -34,7 +35,7 @@ class Blog extends React.Component {
     if (!this.props.blog) {
       return null;
     }
-    const { title, author, url, user, likes, comments } = this.props.blog;
+    const { title, author, url, user, likes, comments, id } = this.props.blog;
     const username = user.username;
     return (
       <div>
@@ -57,6 +58,8 @@ class Blog extends React.Component {
             <button onClick={this.onDelete}>Delete</button>
           ) : null}
         </div>
+
+        <Comments comments={comments} id={id} />
       </div>
     );
   }

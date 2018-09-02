@@ -22,7 +22,7 @@ class User extends Component {
         User: {username}, <br />
         blogs: <br />
         {blogs.map(blog => (
-          <Link to={`/blogs/${blog._id}`}>
+          <Link to={`/blogs/${blog._id}`} key={blog._id}>
             {blog.title}
             <br />
           </Link>

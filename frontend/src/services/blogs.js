@@ -36,6 +36,22 @@ export const like = async id => {
   return response.data;
 };
 
+export const comment = async (id, comment) => {
+  const response = await axios.post(
+    `${baseUrl}/${id}/comments`,
+    { comment },
+    {
+      validateStatus: null
+    }
+  );
+  if (response.status !== 200) {
+    return {
+      error: response.data.error
+    };
+  }
+  return response.data;
+};
+
 export const create = async blogObj => {
   const config = {
     ...getAuthorizationHeaders(),
@@ -76,4 +92,4 @@ const getAuthorizationHeaders = () => ({
   }
 });
 
-export default { create, update, remove };
+export default { create, update, remove, comment };
