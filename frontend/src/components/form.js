@@ -1,5 +1,6 @@
 import React from 'react';
 import { func, arrayOf, shape, string } from 'prop-types';
+import { Button } from 'reakit';
 
 class Form extends React.Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class Form extends React.Component {
             </div>
           );
         })}
-        <button type="submit">{buttonLabel}</button>
+        <Button type="submit">{buttonLabel}</Button>
       </form>
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button } from 'reakit';
+import { Box, Button, styled } from 'reakit';
 import { connect } from 'react-redux';
 import { logout } from '../actions/auth';
 const wrapCallback = callback => {
@@ -9,12 +9,16 @@ const wrapCallback = callback => {
   };
 };
 
+const LogoutButton = styled(Button)`
+  margin: 5px 10px 10px;
+`;
+
 const UserInfo = props => {
   const { logout, username } = props;
   return (
     <Box>
       Logged in as {username}
-      <Button onClick={wrapCallback(logout)}>Logout</Button>
+      <LogoutButton onClick={wrapCallback(logout)}>Logout</LogoutButton>
     </Box>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Button, styled } from 'reakit';
 import { deleteBlog, getBlog, likeBlog } from '../actions/blogs';
 import Comments from './Comments';
 
@@ -51,10 +51,10 @@ class Blog extends React.Component {
               <br />
             </Link>
             {likes} likes
-            <button onClick={this.onLiked}>Like</button>
+            <Button onClick={this.onLiked}>Like</Button>
           </div>
           {!user || username === this.props.loggedInUserName ? (
-            <button onClick={this.onDelete}>Delete</button>
+            <Button onClick={this.onDelete}>Delete</Button>
           ) : null}
         </div>
 
