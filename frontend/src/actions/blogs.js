@@ -57,7 +57,7 @@ export const commentBlog = (id, content) => async dispatch => {
 
   return dispatch({
     type: 'ADD_BLOG_COMMENT',
-    content,
+    content: content.comment,
     id,
     notification: `Added comment ${content.comment}`
   });
