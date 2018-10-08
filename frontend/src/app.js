@@ -12,7 +12,7 @@ import Notification from './components/Notification';
 import About from './components/About';
 import LoginForm from './components/LoginForm';
 import { Provider, Box } from 'reakit';
-import theme from 'reakit-theme-default';
+import theme from './theme';
 
 class App extends React.Component {
   constructor(props) {

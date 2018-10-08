@@ -1,6 +1,6 @@
 import React from 'react';
 import { func, arrayOf, shape, string } from 'prop-types';
-import { Button } from 'reakit';
+import { Button, styled } from 'reakit';
 
 class Form extends React.Component {
   constructor(props) {
