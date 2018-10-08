@@ -5,12 +5,14 @@ import notify from './actions/notify';
 import { autoLogin } from './actions/auth';
 import Blogs from './components/Blogs';
 import Blog from './components/Blog';
-import LoginForm from './components/LoginForm';
-import UserInfo from './components/UserInfo';
+import Header from './components/Header';
 import Users from './components/Users';
 import User from './components/User';
 import Notification from './components/Notification';
 import About from './components/About';
+import LoginForm from './components/LoginForm';
+import { Provider, Box } from 'reakit';
+import theme from 'reakit-theme-default';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,45 +30,44 @@ class App extends React.Component {
   render() {
     const { auth } = this.props;
     return (
-      <BrowserRouter>
-        <div>
-          <Link to="/users">Users</Link> &nbsp;
-          <Link to="/blogs">Blogs</Link> &nbsp;
-          <Link to="/about">About</Link> &nbsp;
-          <Notification />
-          {auth ? <UserInfo /> : null}
-          <Switch>
-            {!auth ? <Redirect push to="/login" /> : null}
-            <Route exact path="/users" component={Users} />
-            <Route path="/users/:id" component={User} />
-          </Switch>
-          <Switch>
-            {!auth ? <Redirect push to="/login" /> : null}
-            <Route exact path="/blogs" component={Blogs} />
-            <Route path="/blogs/:id" component={Blog} />
-          </Switch>
-          <Route
-            exact
-            path="/login"
-            render={({ history }) => {
-              if (!auth) {
-                return <LoginForm />;
-              } else {
-                history.goBack();
-                return null;
+      <Provider theme={theme}>
+        <BrowserRouter>
+          <Box>
+            <Header auth={auth} />
+            <Notification />
+            <Switch>
+              {!auth ? <Redirect push to="/login" /> : null}
+              <Route exact path="/users" component={Users} />
+              <Route path="/users/:id" component={User} />
+            </Switch>
+            <Switch>
+              {!auth ? <Redirect push to="/login" /> : null}
+              <Route exact path="/blogs" component={Blogs} />
+              <Route path="/blogs/:id" component={Blog} />
+            </Switch>
+            <Route
+              exact
+              path="/login"
+              render={({ history }) => {
+                if (!auth) {
+                  return <LoginForm />;
+                } else {
+                  history.goBack();
+                  return null;
+                }
+              }}
+            />
+            <Route
+              exact
+              path="/"
+              render={() =>
+                !auth ? <Redirect push to="/login" /> : <Redirect to="/blogs" />
               }
-            }}
-          />
-          <Route
-            exact
-            path="/"
-            render={() =>
-              !auth ? <Redirect push to="/login" /> : <Redirect to="/blogs" />
-            }
-          />
-          <Route exact path="/about" render={() => <About />} />
-        </div>
-      </BrowserRouter>
+            />
+            <Route exact path="/about" render={() => <About />} />
+          </Box>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

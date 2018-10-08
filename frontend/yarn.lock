@@ -6113,6 +6113,12 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
+reakit-theme-default@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/reakit-theme-default/-/reakit-theme-default-0.1.6.tgz#5037b991a427f0f1dbfd966bd47236bb0b68b222"
+  dependencies:
+    styled-tools "^1.5.1"
+
 reakit@^0.15.5:
   version "0.15.5"
   resolved "https://registry.yarnpkg.com/reakit/-/reakit-0.15.5.tgz#c098f12e2b4fa34e5e3ef03ca4f15a6341dd2472"

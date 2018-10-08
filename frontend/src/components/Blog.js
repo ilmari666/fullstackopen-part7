@@ -17,7 +17,6 @@ class Blog extends React.Component {
   }
   componentDidMount() {
     if (!this.props.blog) {
-      console.log('loadBlog');
       this.props.getBlog(this.props.id);
     }
   }
