@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from 'reakit';
 import { connect } from 'react-redux';
 
 const NotificationBox = styled.div`
