@@ -16,7 +16,7 @@ const LogoutButton = styled(Button)`
 const UserInfo = props => {
   const { logout, username } = props;
   return (
-    <Box>
+    <Box {...props}>
       Logged in as {username}
       <LogoutButton onClick={wrapCallback(logout)}>Logout</LogoutButton>
     </Box>

@@ -11,16 +11,31 @@ const GradientBox = styled.div`
   position: float;
   margin-top: 0px;
   padding: 10px;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to bottom, #7abcff 0%, #60abf8 44%, #4096ee 100%);
+`;
+const Navi = styled.div`
+  position: float;
+  margin-top: 0px;
+  padding: 10px;
+  width: 100%;
+  height: 12px;
   background: linear-gradient(to bottom, #7abcff 0%, #60abf8 44%, #4096ee 100%);
 `;
 
+
 const Header = props => (
-  <GradientBox>
-    {props.auth ? <UserInfo /> : null}
-    <Link to="/users">Users</Link> &nbsp;
-    <Link to="/blogs">Blogs</Link> &nbsp;
-    <Link to="/about">About</Link> &nbsp;
-  </GradientBox>
+  <>
+    <GradientBox>
+      {props.auth ? <UserInfo absolute right={10}/> : null}
+    </GradientBox>
+    <Navi>
+      <Link to="/users">Users</Link> &nbsp;
+      <Link to="/blogs">Blogs</Link> &nbsp;
+      <Link to="/about">About</Link> &nbsp;
+    </Navi>
+  </>
 );
 
 export default Header;
