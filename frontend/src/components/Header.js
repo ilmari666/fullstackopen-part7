@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Toolbar, styled } from 'reakit';
+import { Navigation, Box, Toolbar, styled } from 'reakit';
 import { Link } from 'react-router-dom';
 
 // import LoginForm from './LoginForm';
@@ -21,7 +21,7 @@ const Navi = styled.div`
   position: float;
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 10px;
+  padding-left: 3rem;
   width: 100%;
   height: 12px;
   background: linear-gradient(to bottom, rgba(244,244,244,1) 17%,rgba(229,229,229,1) 81%);
@@ -37,13 +37,13 @@ const Line = styled.div`
 const Header = props => (
   <>
     <GradientBox>
-      {props.auth ? <UserInfo absolute right={10}/> : null}
+      {props.auth ? <UserInfo absolute right="1rem"/> : null}
     </GradientBox>
-    <Navi>
+    <Navigation>
       <Link to="/users">Users</Link> &nbsp;
       <Link to="/blogs">Blogs</Link> &nbsp;
       <Link to="/about">About</Link> &nbsp;
-    </Navi>
+    </Navigation>
     <Line />
   </>
 );

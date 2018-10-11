@@ -1,6 +1,6 @@
-import React from 'react';
-import { func, arrayOf, shape, string } from 'prop-types';
-import { Button, styled } from 'reakit';
+import React from "react";
+import { func, arrayOf, shape, string } from "prop-types";
+import { Button, styled } from "reakit";
 
 class Form extends React.Component {
   constructor(props) {
@@ -44,13 +44,13 @@ class Form extends React.Component {
     return (
       <form onSubmit={this.onSubmit}>
         {fields.map(field => {
-          const { type, name } = field;
+          const { label, type, name } = field;
           return (
             <div key={name}>
-              {name}
+              {label}<br />
               <input
                 name={name}
-                type={type || 'text'}
+                type={type || "text"}
                 value={this.state[name]}
                 onChange={this.onFieldChange}
               />

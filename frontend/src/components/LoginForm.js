@@ -5,10 +5,12 @@ import Form from './Form';
 
 const fields = [
   {
+    label: 'Username:',
     name: 'username',
     type: 'text'
   },
   {
+    label: 'Password',
     name: 'password',
     type: 'password'
   }

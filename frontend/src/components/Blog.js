@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button, styled } from 'reakit';
+import { Overlay, Block, Button, Backdrop, Portal, styled } from 'reakit';
+
 import { deleteBlog, getBlog, likeBlog } from '../actions/blogs';
 import Comments from './Comments';
 
@@ -27,7 +28,7 @@ class Blog extends React.Component {
 
   onDelete = e => {
     e.preventDefault();
-    this.props.deleteBlog(this.props.id);
+    this.props.deleteBlog(this.props.blog);
   };
 
   render() {
@@ -54,7 +55,23 @@ class Blog extends React.Component {
             <Button onClick={this.onLiked}>Like</Button>
           </div>
           {!user || username === this.props.loggedInUserName ? (
-            <Button onClick={this.onDelete}>Delete</Button>
+            <Overlay.Container>
+              {overlay => (
+                <Block>
+                  <Button backgroundColor="red" as={Overlay.Show} {...overlay}>Delete</Button>
+                  <Backdrop as={[Portal, Overlay.Hide]} {...overlay} />
+                  <Overlay as={Portal} {...overlay}>
+                    { console.log(overlay) || null }
+                    Are you sure you want to remove "{title}"?
+                    <Button backgroundColor="gray" onClick={overlay.hide}>Cancel</Button>
+                    <Button backgroundColor="red" onClick={e=>{
+                      this.onDelete(e);
+                      overlay.hide();
+                    }}>Confirm</Button>
+                  </Overlay>
+                </Block>
+              )}
+            </Overlay.Container>
           ) : null}
         </div>
 

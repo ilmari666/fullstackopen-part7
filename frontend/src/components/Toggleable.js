@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'reakit';
 import { string, bool } from 'prop-types';
 
 class Toggleable extends React.Component {
@@ -11,9 +12,9 @@ class Toggleable extends React.Component {
   createControls() {
     const { displayContent } = this.state;
     return (
-      <button onClick={() => this.toggle()}>
+      <Button onClick={() => this.toggle()}>
         {displayContent ? this.props.hideLabel : this.props.showLabel}
-      </button>
+      </Button>
     );
   }
 

@@ -79,7 +79,7 @@ export const createBlog = blog => async dispatch => {
   }
   return dispatch({
     type: 'CREATE_BLOG',
-    blog: response,
+    blog: response.data,
     notification: `Created blog ${blog.title}`
   });
 };

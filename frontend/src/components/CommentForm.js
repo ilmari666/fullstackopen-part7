@@ -6,6 +6,7 @@ import Form from './Form';
 
 const fields = [
   {
+    label: 'Comment:',
     name: 'comment',
     type: 'text'
   }
@@ -18,10 +19,9 @@ const CommentForm = props => {
       <Form
         fields={fields}
         onSubmit={comment => {
-          console.log(comment);
           props.commentBlog(id, comment);
         }}
-        buttonLabel="comment"
+        buttonLabel="Comment"
       />
     </div>
   );

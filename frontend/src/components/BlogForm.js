@@ -4,14 +4,17 @@ import Form from './Form';
 
 const fields = [
   {
+    label: 'Title:',
     name: 'title',
     type: 'text'
   },
   {
+    label: 'Author:',
     name: 'author',
     type: 'text'
   },
   {
+    label: 'Blog URL:',
     name: 'url',
     type: 'text'
   }
