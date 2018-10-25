@@ -29,7 +29,8 @@ export const getBlog = id => async dispatch => {
   });
 };
 
-export const likeBlog = id => async dispatch => {
+export const likeBlog = blog => async dispatch => {
+  const { id } = blog;
   const response = await like(id);
   if (response.error) {
     return dispatch({
@@ -37,12 +38,11 @@ export const likeBlog = id => async dispatch => {
       message: { error: response.error }
     });
   }
-
   return dispatch({
     type: 'UPDATE_BLOG',
     content: response,
     id,
-    notification: `Liked blog ${id}`
+    notification: `Liked blog ${blog.title}`
   });
 };
 
