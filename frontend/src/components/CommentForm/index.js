@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
-import { commentBlog } from '../../actions/blogs';
 import Form from '../Form';
 
 const fields = [
@@ -27,7 +26,4 @@ const CommentForm = props => {
   );
 };
 
-export default connect(
-  null,
-  { commentBlog }
-)(CommentForm);
+export default CommentForm;

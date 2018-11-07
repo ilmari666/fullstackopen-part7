@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getUser } from '../../actions/users';
 
 class User extends Component {
   componentDidMount() {
@@ -32,17 +30,5 @@ class User extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  const id = props.match.params.id;
-  const users = state.users.users;
-  const user = users.find(user => user.id === id);
-  return {
-    user,
-    id
-  };
-};
+export default User;
 
-export default connect(
-  mapStateToProps,
-  { getUser }
-)(User);

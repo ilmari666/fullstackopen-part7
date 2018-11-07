@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Overlay, Block, Button, Backdrop, Portal, styled } from 'reakit';
 
-import { deleteBlog, getBlog, likeBlog } from '../../actions/blogs';
 import Comments from '../Comments';
 
 const BlogWrapper = styled.div`
@@ -52,7 +50,7 @@ class Blog extends React.Component {
               <br />
             </Link>
             {likes} likes
-            <Button margin={10} onClick={this.onLiked}>Like</Button>
+            <Button className="like" margin={10} onClick={this.onLiked}>Like</Button>
           </div>
           {!user || username === this.props.loggedInUserName ? (
             <Overlay.Container>
@@ -74,28 +72,10 @@ class Blog extends React.Component {
           ) : null}
         </div>
 
-        <Comments comments={comments} id={id} />
+        <Comments comments={comments} id={id} commentBlog={this.props.commentBlog}/>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, props) => {
-  const id = props.match.params.id;
-  const blogs = state.blogs.blogs;
-  const blog = blogs.find(blog => blog.id === id);
-  return {
-    blog,
-    id,
-    loggedInUserName: state.auth.username
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  {
-    deleteBlog,
-    getBlog,
-    likeBlog
-  }
-)(Blog);
+export default Blog;

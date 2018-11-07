@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="Box-sc-1tbf5pj-0 lhxRQq"
+>
+  <h1>
+    About
+  </h1>
+  Blogilista as React-Redux-Node-Mongoose -harjoite
+</div>
+`;

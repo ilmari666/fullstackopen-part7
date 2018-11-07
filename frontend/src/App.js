@@ -3,18 +3,20 @@ import { connect } from "react-redux";
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 import notify from "./actions/notify";
 import { autoLogin } from "./actions/auth";
-import Blogs from "./components/Blogs";
-import Blog from "./components/Blog";
+
+import Blogs from "./containers/Blogs";
+import Blog from "./containers/Blog";
+import Users from "./containers/Users";
+import User from "./containers/User";
+
 import Header from "./components/Header";
-import Users from "./components/Users";
-import User from "./components/User";
 import Notification from "./components/Notification";
 import About from "./components/About";
 import LoginForm from "./components/LoginForm";
 import { Provider, Box, styled } from "reakit";
 import theme from "./theme";
 
-class App extends React.Component {
+export class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -83,3 +85,4 @@ export default connect(
   },
   { notify, autoLogin }
 )(App);
+

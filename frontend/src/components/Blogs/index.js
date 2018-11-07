@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Overlay, Block, Button, Backdrop, Portal } from 'reakit';
-import { getBlogs, likeBlog, createBlog, deleteBlog } from '../../actions/blogs';
 import BlogForm from '../BlogForm';
 import Toggleable from '../Toggleable';
 
@@ -41,7 +39,4 @@ class Blogs extends Component {
   }
 }
 
-export default connect(
-  state => ({ blogs: state.blogs.blogs }),
-  { getBlogs, likeBlog, createBlog, deleteBlog }
-)(Blogs);
+export default Blogs;

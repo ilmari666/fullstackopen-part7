@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getUsers } from '../../actions/users';
 
 const ListUser = ({ username, blogs, id }) => (
   <div>
@@ -30,10 +28,4 @@ class Users extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    users: state.users.users,
-    dirty: state.users.dirty
-  }),
-  { getUsers }
-)(Users);
+export default Users;
