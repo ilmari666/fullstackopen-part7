@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, styled } from 'reakit';
 import { connect } from 'react-redux';
-import { logout } from '../actions/auth';
+import { logout } from '../../actions/auth';
 const wrapCallback = callback => {
   return e => {
     e.preventDefault();

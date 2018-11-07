@@ -1,6 +1,6 @@
 import React from 'react';
 import { func } from 'prop-types';
-import Form from './Form';
+import Form from '../Form';
 
 const fields = [
   {

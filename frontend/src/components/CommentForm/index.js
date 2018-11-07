@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
-import { commentBlog } from '../actions/blogs';
-import Form from './Form';
+import { commentBlog } from '../../actions/blogs';
+import Form from '../Form';
 
 const fields = [
   {

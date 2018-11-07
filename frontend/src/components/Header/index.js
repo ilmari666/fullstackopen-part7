@@ -1,11 +1,11 @@
 import React from 'react';
-import { Navigation, Box, Toolbar, styled } from 'reakit';
+import { Navigation, Box, Toolbar, styled, Link as ReakitLink } from 'reakit';
 import { Link } from 'react-router-dom';
 
 // import LoginForm from './LoginForm';
 //import { Link } from 'reakit';
 
-import UserInfo from './UserInfo';
+import UserInfo from '../UserInfo';
 
 const GradientBox = styled.div`
   position: float;
@@ -36,7 +36,7 @@ const Line = styled.div`
 
 const Header = props => (
   <>
-    <GradientBox>
+    <GradientBox debug={console.log(props)}>
       {props.auth ? <UserInfo absolute right="1rem"/> : null}
     </GradientBox>
     <Navigation>

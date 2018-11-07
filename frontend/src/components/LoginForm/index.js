@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login } from '../actions/auth';
-import Form from './Form';
+import { login } from '../../actions/auth';
+import Form from '../Form';
 
 const fields = [
   {

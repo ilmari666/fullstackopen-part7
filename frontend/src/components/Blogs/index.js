@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Overlay, Block, Button, Backdrop, Portal } from 'reakit';
-import { getBlogs, likeBlog, createBlog, deleteBlog } from '../actions/blogs';
-import Blog from './Blog';
-import BlogForm from './BlogForm';
-import Toggleable from './Toggleable';
+import { getBlogs, likeBlog, createBlog, deleteBlog } from '../../actions/blogs';
+import BlogForm from '../BlogForm';
+import Toggleable from '../Toggleable';
 
 const ListBlog = ({ title, author, id }) => (
   <div>

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Overlay, Block, Button, Backdrop, Portal, styled } from 'reakit';
 
-import { deleteBlog, getBlog, likeBlog } from '../actions/blogs';
-import Comments from './Comments';
+import { deleteBlog, getBlog, likeBlog } from '../../actions/blogs';
+import Comments from '../Comments';
 
 const BlogWrapper = styled.div`
   border-style: solid;
@@ -23,7 +23,7 @@ class Blog extends React.Component {
   }
   onLiked = e => {
     e.preventDefault();
-    this.props.likeBlog(this.props.id);
+    this.props.likeBlog(this.props.blog);
   };
 
   onDelete = e => {
@@ -40,19 +40,19 @@ class Blog extends React.Component {
     return (
       <div>
         <div className="blogHeader">
-          {title} {author}
+          <h1>{title}</h1> {author}
         </div>
 
         <div>
           <div className="blogInfo">
             URL: <a href={url}>{url}</a> <br />
-            Created by:{' '}
+            Added by:{' '}
             <Link to={`/users/${user._id}`}>
               {username}
               <br />
             </Link>
             {likes} likes
-            <Button onClick={this.onLiked}>Like</Button>
+            <Button margin={10} onClick={this.onLiked}>Like</Button>
           </div>
           {!user || username === this.props.loggedInUserName ? (
             <Overlay.Container>
@@ -61,7 +61,6 @@ class Blog extends React.Component {
                   <Button backgroundColor="red" as={Overlay.Show} {...overlay}>Delete</Button>
                   <Backdrop as={[Portal, Overlay.Hide]} {...overlay} />
                   <Overlay as={Portal} {...overlay}>
-                    { console.log(overlay) || null }
                     Are you sure you want to remove "{title}"?
                     <Button backgroundColor="gray" onClick={overlay.hide}>Cancel</Button>
                     <Button backgroundColor="red" onClick={e=>{

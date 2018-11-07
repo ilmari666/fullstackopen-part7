@@ -1,5 +1,5 @@
 import React from 'react';
-import CommentForm from './CommentForm';
+import CommentForm from '../CommentForm';
 
 const Comment = props => {
   return <div>{props.comment}</div>;
