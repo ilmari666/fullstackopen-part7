@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { func } from 'prop-types';
+
+const PROP_TYPES = {
+  getUser: func.isRequired,
+};
+
 
 class User extends Component {
   componentDidMount() {
@@ -29,6 +35,8 @@ class User extends Component {
     );
   }
 }
+
+User.propTypes = PROP_TYPES;
 
 export default User;
 

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <form
+    onSubmit={[Function]}
+  >
+    <div>
+      Comment:
+      <br />
+      <input
+        name="comment"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <button
+      className="Button-sc-1tz8otg-0 bXPeFQ Box-sc-1tbf5pj-0 lhxRQq"
+      type="submit"
+    >
+      Comment
+    </button>
+  </form>
+</div>
+`;

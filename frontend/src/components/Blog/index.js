@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Overlay, Block, Button, Backdrop, Portal, styled } from 'reakit';
-
+import { func } from 'prop-types';
 import Comments from '../Comments';
+
+const PROP_TYPES = {
+  deleteBlog: func.isRequired,
+  getBlog: func.isRequired,
+  likeBlog: func.isRequired,
+};
+
 
 const BlogWrapper = styled.div`
   border-style: solid;
@@ -78,4 +85,5 @@ class Blog extends React.Component {
   }
 }
 
+Blog.propTypes = PROP_TYPES;
 export default Blog;
